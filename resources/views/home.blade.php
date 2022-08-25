@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('contenidoPrincipal')
     <div class="container mensajeLogeo">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -33,7 +33,9 @@
         $(document).ready(function() {
             setTimeout(function() {
                 $(".mensajeLogeo").fadeOut(1500);
+                location="/panelusuario";
             }, 2000);
+
         });
     </script>
 @endsection

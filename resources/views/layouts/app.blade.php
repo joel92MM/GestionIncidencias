@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,49 +21,13 @@
 </head>
 
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-lg bg-primary">
-            <div class="container-fluid text-light">
-                <a class="navbar-brand text-light" href="#">Aplicación de Incidencias</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-light" aria-current="page"
-                                href="{{ url('/') }}">Inicio</a>
-                        </li>
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="{{ route('login') }}">Iniciar sesion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="{{ route('register') }}">Registrarse</a>
-                            </li>
-                        @else
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="">Panel de  Usuario</a>
-                        </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="{{ route('signout') }}">Cerrar sesion</a>
-                            </li>
-                        @endguest
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Texto a buscar"
-                            aria-label="Search">
-                        <button class="btn btn-outline-light" type="submit">Buscar</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+    @include('layouts.header')
 
+    @yield('contenidoPrincipal')
 
-
-    </div>
+    <br/>
+    <br/>
+    <br/>
     @include('layouts.footer')
 
     {{-- bootstrap css --}}
@@ -79,6 +42,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     @yield('scripts')
+    @yield('scriptProject')
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-<footer class="py-3 footer bg-primary fixed-bottom">
+<footer class="py-3 footer bg-primary w-100 position-fixed bottom-0">
     <div class="container">
         <div class="row align-items-center justify-content-xl-between">
             <div class="col-xl-6">

@@ -27,14 +27,16 @@ return [
     | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
     */
-
     'disks' => [
 
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
-
+        'mi_disco'=>[
+            'driver'=>'local',
+            'root'=>storage_path('almacenamientoArchivos'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

@@ -1,7 +1,7 @@
-@extends('layouts.vistaLogin')
+@extends('layouts.app')
 
-@section('logearse')
-<div class="container justify-content-center align-items-center mt-5">
+@section('contenidoPrincipal')
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

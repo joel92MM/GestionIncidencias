@@ -8,19 +8,19 @@ use Illuminate\Support\Facades\Session;
 
 class CustomAuthController extends Controller
 {
-      /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    //   /**
+    //  * Show the application dashboard.
+    //  *
+    //  * @return \Illuminate\Contracts\Support\Renderable
+    //  */
     // public function login()
     // {
-    //     return view('layouts.vistaLogin');
+    //     return view('layouts.login');
     // }
     public function signOut() {
         Session::flush();
         Auth::logout();
 
-        return Redirect('login');
+        return Redirect('panelusuario');
     }
 }
