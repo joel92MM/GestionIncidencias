@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Project;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -59,8 +60,10 @@ class UserController extends Controller{
      * @return void envia los datos a la vista paginados
      */
     public function edit($id){
-        $user=User::find($id)->paginate(10);
-        return view('admin.users.edit')->with(compact('user'));
+        $user=User::find($id);
+        //dd($user);
+        $projects=Project::all();
+        return view('admin.users.edit')->with(compact('user','projects'));
     }
     /**
      * Actualiza los datos de la edicion de usuarios

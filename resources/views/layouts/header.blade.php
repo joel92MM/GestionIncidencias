@@ -9,6 +9,8 @@
              </button>
 
              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {{-- si el usuario se a identificado mostraremos el select --}}
+                @if(auth()->check())
                  <form action="" class="navbar-form">
                      <div class="form-group">
                          <select name="" id="" class="form-control">
@@ -16,6 +18,8 @@
                          </select>
                      </div>
                  </form>
+
+                 @endif
                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                      {{-- @guest --}}
                      @if (auth()->check())

@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label for="name">Nombre</label>
-                    <input type="text" name="name" value="{{ old('name') }}"
+                    <input type="text" name="name" value="{{ old('name', $user->name) }}"
                         placeholder="Introduce el nombre del usuario" class="form-control">
                     </select>
                 </div>
@@ -48,10 +48,29 @@
                     @endif
                 </div>
             </div>
-                <div class="form-group ms-3">
-                    <button class="btn btn-secondary btn-lg">Guardar usuarios</button>
-                </div>
+            <div class="form-group ms-3">
+                <button class="btn btn-secondary btn-lg">Guardar usuarios</button>
+            </div>
         </form>
+        <div class="row mt-3 align-item-center ms-3">
+            <div class="col-md-4">
+                <select name="" id="select-project" class="form-control form-select">
+                    <option value="">Seleccione proyecto</option>
+                    @foreach ($projects as $project)
+                        <option value="{{$project->id}}">{{$project->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select name="" id="select-level" class="form-control  form-select">
+                    <option value="">Seleccione nivel</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-block">Asignar proyecto</button>
+            </div>
+        </div>
+        <p class="mt-3 ms-3">Proyectos asignados</p>
         <br />
         {{-- aqui va la tabla del el crud de usuarios --}}
         <table class="table text-center">
@@ -86,7 +105,10 @@
             </tbody>
         </table>
     </div>
-    <div class="btn-group mt-4 " role="group">
+    {{-- <div class="btn-group mt-4 " role="group">
         {{ $user->links('pagination::bootstrap-4') }}
-    </div>
+    </div> --}}
+@endsection
+@section('scripts')
+    <script src="{{asset('js/admin/users/edit.js')}}"></script>
 @endsection

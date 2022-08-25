@@ -9,6 +9,15 @@ use App\Http\Controllers\Controller;
 class LevelController extends Controller
 {
     /**
+     * Funcion que filtra el nivel de los proyectos por su identificador
+     * @param  mixed $id identificador de nivel
+     * @return void devuelve una coleccion de proyectos segun el identificador, devolviendo la respuesta en json
+     */
+    public function byProject($id)
+    {
+        return Level::where('project_id',$id)->get();
+    }
+    /**
      * Funcion que guarda los datos de un nivel
      * @param  mixed $request datos de un nivel a actualizar
      * @return void almacena los datos de un nivel que se van a actualizar
