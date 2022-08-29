@@ -29,6 +29,13 @@ class CreateIncidentsTable extends Migration
             ->on('categories')
             ->onDelete('cascade');
 
+
+            $table->integer('project_id')->unsigned()->nullable();
+            $table->foreign('project_id')
+            ->references('id')
+            ->on('projects')
+            ->onDelete('cascade');
+
             //$table->foreignId('category_id')->constrained('categories');
 
             //$table->unsignedBigInteger('level_id');

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IncidentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\Admin\LevelController;
@@ -47,10 +48,10 @@ Route::get('/panelusuario', function () {
 // Route::get('/reportar', function () {
 //     return view('registroIncidencias.report');
 // });
-Route::get('/reportar', [HomeController::class, 'getReport']);
-Route::post('/reportar', [HomeController::class, 'postReport']);
+Route::get('/reportar', [IncidentController::class, 'create']);
+Route::post('/reportar', [IncidentController::class, 'store']);
+Route::get('/listadoIncidencias', [IncidentController::class, 'index']);
 
-Route::get('/listadoIncidencias', [HomeController::class, 'listadoIncidencias']);
 Route::get('/seleccionar/proyecto/{id}', [HomeController::class, 'selectedProject']);
 // creamos un grupos de rutas para la autenticación
 Route::group(['middleware' => 'admin', 'namespace' => 'Admin'], function () {

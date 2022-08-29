@@ -84,5 +84,12 @@ class User extends Authenticatable
     public function getIsClientAttribute(){
         return $this->role==2;
     }
+    /**
+     * Si el valor del atributo es 1 es un usuario de soporte
+     * @return void
+     */
+    public function getIsSupportAttribute(){
+        return $this->role==1;
+    }
 
 }

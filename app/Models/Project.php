@@ -59,4 +59,8 @@ class Project extends Model
         # unp proyecto tiene muchas categorias
         return $this->hasMany(Level::class);
     }
+    public function getFirstLevelIdAttribute()
+    {
+        return $this->levels->first()->id;
+    }
 }
