@@ -16,15 +16,16 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 //2. When =>Cuando Realizamos dicha accioin que queremos probar
 //3. Then => Entonces Comprobamos que los resultados obteneidos son los esperados
 
-class proyectosTest extends TestCase{
+class proyectosTest extends TestCase
+{
 
     /** @test */
-    function listaProyectos()
+    function crearProyectosTest()
     {
-       $proyectoNuevo= Project::create([
-                'name'=> 'SJD Dentistas',
-                'descripcion'=>'El proyecto SJD Dentistas tratara de llevarles la web'
-            ]);
+        $proyectoNuevo = Project::create([
+            'name' => 'SJD Dentistas',
+            'descripcion' => 'El proyecto SJD Dentistas tratara de llevarles la web'
+        ]);
 
         // $this->assertEquals($user->name, 'John');
         $this->assertEquals($proyectoNuevo->name, 'SJD Dentistas');
@@ -36,7 +37,35 @@ class proyectosTest extends TestCase{
         //                 ->assertStatus(200)
         //                 ->assertSee('SJD Dentistas');
     }
+    /** @test */
+    function existeProyectosTestFail()
+    {
+        $existe = Project::find('3');
+        $this->assertNotEquals('SJD Dentistas', $existe->name);
+    }
+    /** @test */
+    function existeProyectosTest()
+    {
+        $proyectoNuevo = Project::create([
+            'id' => 23,
+            'name' => 'Proyecto Existe',
+            'descripcion' => 'El proyecto SJD Dentistas tratara de llevarles la web'
+        ]);
+        $existe = Project::find($proyectoNuevo->id);
 
+        $this->assertEquals('Proyecto Existe', $existe->name);
+
+    }
+    // /** @test */
+    // function listaContieneProyecto()
+    // {
+    //     $existe = Project::find('3');
+    //     $response = $this->get('/proyectos');
+    //     $response->assertSee([
+    //         'name'=>$existe->name,
+    //     ]);
+
+    // }
     // /** @test */
     // function muestraListadoUsuarios(){
     //     // Se ejecutan antes de las pruebas para que los nombres esten en la bbdd y asi no fallen
@@ -353,20 +382,23 @@ class proyectosTest extends TestCase{
 
     //     ]);
     // }
-    // /** @test */
-    // function borrarUsuario(){
-    //     $this->withExceptionHandling();
-    //     // procederemos a crear un usuario nuevo
-    //     $usuario = User::factory()->create([
-    //         //'email'=>'joelMeneses@roquark.com'
-    //     ]);
-    //     $this-> delete("usuarios/{$usuario->id}")// este metodo va a recibir una url que posteriormente se escargara de borrar
-    //     ->assertRedirect('usuarios');//luego de hacer la accion borrar el usuario sera redirigido al listado de usuarios
-    //     // no espero ver el id del usuario que borre en la BBDD
-    //     $this->assertDatabaseMissing('users',[
-    //         'id'=>$usuario->id
-    //     ]);
-    //}
+    /** @test */
+    function borrarProyecto()
+    {
+        $this->withExceptionHandling();
+        // procederemos a crear un usuario nuevo
+
+        $proyectoBorrar = Project::create([
+            'name' => 'Proyecto a borrar',
+            'descripcion' => 'El proyecto a borrar'
+        ]);
+        $this->delete("/proyectos/{$proyectoBorrar->id}/eliminar") // este metodo va a recibir una url que posteriormente se escargara de borrar
+            ->assertRedirect('/proyectos'); //luego de hacer la accion borrar el usuario sera redirigido al listado de usuarios
+        // no espero ver el id del usuario que borre en la BBDD
+        // $this->assertDatabaseMissing('projects',[
+        //     'id'=>$proyectoBorrar->id
+        // ]);
+    }
     // test crud
     /** @test */
     // function borrarUsuarioTest()
@@ -386,16 +418,29 @@ class proyectosTest extends TestCase{
     //     $data =$this->validate
     //  }
     /** @test */
-//     public function testStorage()
-// {
-//     $file = UploadedFile::fake()->image('File10.png');
-//     $response = $this->post(route("save.image"), [
-//         'file' => $file,
-//     ]);
-//     $response
-//         ->assertStatus(200)
-//         ->assertSessionHasNoErrors();
-//     Storage::disk('local')->assertExists("/images/" . $file->name);
-// }
+    //     public function testStorage()
+    // {
+    //     $file = UploadedFile::fake()->image('File10.png');
+    //     $response = $this->post(route("save.image"), [
+    //         'file' => $file,
+    //     ]);
+    //     $response
+    //         ->assertStatus(200)
+    //         ->assertSessionHasNoErrors();
+    //     Storage::disk('local')->assertExists("/images/" . $file->name);
+    // }
+
+    // /** @test */
+    // public function borrarTest(){
+    //     $proyectoNuevo= Project::create([
+    //         'name'=> 'Proyecto Clínica Dental ',
+    //         'descripcion'=>'El proyecto Clínica Dental consiste en desarrollar un sitio web basico de la clinica casanova'
+    //     ]);
+
+    //     $this->delete('/proyecto-usuario/'.$proyectoNuevo->id.'/eliminar/');
+
+
+    //     $this->assertDatabaseHas('project_user',['id'=>$proyectoNuevo->id]);
+    // }
 
 }

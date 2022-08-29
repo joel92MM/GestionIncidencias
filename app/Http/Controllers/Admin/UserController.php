@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Project;
-use Illuminate\Support\Str;
+use App\Models\ProjectUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -61,9 +61,10 @@ class UserController extends Controller{
      */
     public function edit($id){
         $user=User::find($id);
-        //dd($user);
+
         $projects=Project::all();
-        return view('admin.users.edit')->with(compact('user','projects'));
+        $projects_user=ProjectUser::where('user_id',$user->id)->get();
+        return view('admin.users.edit')->with(compact('user','projects','projects_user'));
     }
     /**
      * Actualiza los datos de la edicion de usuarios

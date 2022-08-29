@@ -24,6 +24,9 @@ class CreateUsersTable extends Migration
 
             $table->smallInteger('role')->default(2);
 
+            $table->integer('selected_project_id')->unsigned()->nullable();
+            $table->foreign('selected_project_id')->references('id')->on('projects');
+
             $table->rememberToken();
 
             //agrega a nuestra tabla de usuarios un campo deletestamps

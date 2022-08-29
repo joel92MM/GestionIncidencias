@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\LevelController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\ProyectController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProjectUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,8 @@ Route::get('/panelusuario', function () {
 Route::get('/reportar', [HomeController::class, 'getReport']);
 Route::post('/reportar', [HomeController::class, 'postReport']);
 
+Route::get('/listadoIncidencias', [HomeController::class, 'listadoIncidencias']);
+Route::get('/seleccionar/proyecto/{id}', [HomeController::class, 'selectedProject']);
 // creamos un grupos de rutas para la autenticación
 Route::group(['middleware' => 'admin', 'namespace' => 'Admin'], function () {
     // Rutas de usuarios
@@ -60,7 +63,7 @@ Route::group(['middleware' => 'admin', 'namespace' => 'Admin'], function () {
 
     Route::get('/usuarios/{id}/eliminar', [UserController::class, 'delete']);
 
-    // Rutas de protectos
+    // Rutas de proyectos
     Route::get('/proyectos', [ProyectController::class, 'index']);
     Route::post('/proyectos', [ProyectController::class, 'store']);
 
@@ -82,6 +85,10 @@ Route::group(['middleware' => 'admin', 'namespace' => 'Admin'], function () {
 
     // Rutas de configuracion
     Route::get('/configuracion', [ConfigController::class, 'store']);
+
+    //Rutas de Project-User
+    Route::post('/proyecto-usuario',[ProjectUserController::class, 'store']);
+    Route::get('/proyecto-usuario/{id}/eliminar', [ProjectUserController::class, 'delete']);
 });
 
 Route::get('/file',[PdfController::class, 'comprobarYCrearFichero']);

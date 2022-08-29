@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth\save;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -36,5 +37,24 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    // procederemos a sobreescribir una funcion
+    protected function authenticated()
+    {
+        //$user=Illuminate\Support\Facades\Auth::user();
+        $user=auth()->user();
+        // comprobamos si el usuario que se acaba de identificar es un usuario de soporte
+        if($user->is_admin || $user->is_client){
+            return;
+        }
+
+        //si el usuario no tiene proyecto asignado le asignaremos uno
+        if(!$user->selected_project_id){
+            $user->selected_project_id=$user->projects->first()->id;
+            $user->save();
+        }
+
+
+
     }
 }

@@ -16,6 +16,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 //3. Then => Entonces Comprobamos que los resultados obteneidos son los esperados
 
 class primerPruebaTest extends TestCase{
+    /** @test*/
+    public function testBasicTest()
+    {
+        $response = $this->get('/');
+
+        $response->dumpHeaders();
+
+        $response->dumpSession();
+
+        $response->dump()
+        ->assertStatus(200);
+    }
     /** @test */
     function exitDataBBDD()
     {

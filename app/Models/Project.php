@@ -33,6 +33,15 @@ class Project extends Model
         'name.required'=>'Es necesario ingresar un nombre para el proyecto.',
         'start.date'=>'La fehca mo tiene un formato adecuado.'
     ];
+    /**
+     * Definimos la relacion de muchos a mucho de la tabla usuarios, a un proyecto se le pueden asignar varios usuarios
+     *y un usuarios es asignado a varios proyectos
+     * @return void
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 
     /**
      * Funcion que establece una relacion de muchos entre proyectos y categoriias

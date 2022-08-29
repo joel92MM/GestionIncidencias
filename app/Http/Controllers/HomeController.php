@@ -27,6 +27,23 @@ class HomeController extends Controller
     {
         return view('home');
     }
+     /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function listadoIncidencias()
+    {
+        return view('includes.listaIncidencias');
+    }
+    public function selectedProject($id)
+    {
+        $user=auth()->user();
+        $user->selected_project_id=$id;
+        $user->save();
+
+        return back();
+    }
     public function getReport(){
         //$project =Project::find(1);
         //$categories =$project->categories;

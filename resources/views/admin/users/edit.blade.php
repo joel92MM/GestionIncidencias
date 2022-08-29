@@ -52,24 +52,28 @@
                 <button class="btn btn-secondary btn-lg">Guardar usuarios</button>
             </div>
         </form>
-        <div class="row mt-3 align-item-center ms-3">
-            <div class="col-md-4">
-                <select name="" id="select-project" class="form-control form-select">
-                    <option value="">Seleccione proyecto</option>
-                    @foreach ($projects as $project)
-                        <option value="{{$project->id}}">{{$project->name}}</option>
-                    @endforeach
-                </select>
+        <form action="/proyecto-usuario" method="post">
+            {{ csrf_field() }}
+            <input type="hidden" name="user_id" value="{{$user->id}}" />
+            <div class="row mt-3 align-item-center ms-3">
+                <div class="col-md-4">
+                    <select name="project_id" id="select-project" class="form-control form-select">
+                        <option value="">Seleccione proyecto</option>
+                        @foreach ($projects as $project)
+                            <option value="{{ $project->id }}">{{ $project->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select name="level_id" id="select-level" class="form-control  form-select">
+                        <option value="">Seleccione nivel</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary btn-block">Asignar proyecto</button>
+                </div>
             </div>
-            <div class="col-md-4">
-                <select name="" id="select-level" class="form-control  form-select">
-                    <option value="">Seleccione nivel</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <button class="btn btn-primary btn-block">Asignar proyecto</button>
-            </div>
-        </div>
+        </form>
         <p class="mt-3 ms-3">Proyectos asignados</p>
         <br />
         {{-- aqui va la tabla del el crud de usuarios --}}
@@ -82,18 +86,12 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($projects_user as $project_user )
                 <tr>
-                    <td>Proyecto A</td>
-                    <td>N1</td>
+                    <td>{{$project_user->project->name}}</td>
+                    <td>{{$project_user->level->name}}</td>
                     <td>
-                        <a href="" class="btn btn-sm btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
-                            </svg>
-                        </a>
-                        <a href="" class="btn btn-sm btn-danger">
+                        <a href="/proyecto-usuario/{{$project_user->id}}/eliminar" class="btn btn-sm btn-danger">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                 <path
@@ -102,6 +100,7 @@
                         </a>
                     </td>
                 </tr>
+               @endforeach
             </tbody>
         </table>
     </div>
@@ -110,5 +109,5 @@
     </div> --}}
 @endsection
 @section('scripts')
-    <script src="{{asset('js/admin/users/edit.js')}}"></script>
+    <script src="{{ asset('js/admin/users/edit.js') }}"></script>
 @endsection
