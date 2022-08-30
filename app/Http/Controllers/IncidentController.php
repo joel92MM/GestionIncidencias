@@ -23,29 +23,30 @@ class IncidentController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $selected_project_id=$user->selected_project_id;
-        //dd($user);
-        // hacemos una condicion para sabe si el usuario es de sopporte
+        $selected_project_id = $user->selected_project_id;
+        // //dd($user);
+        // // hacemos una condicion para sabe si el usuario es de sopporte
         if ($user->is_support) {
-            // obtenemso la incidencias al usuarios que a iniciado session
+            //     // obtenemso la incidencias al usuarios que a iniciado session
             $incidents = Incident::where('project_id', $selected_project_id)
                 ->where('support_id', $user->id)->get();
 
             $projectUser = ProjectUser::where('project_id', $selected_project_id)
                 ->where('user_id', $user->id)->first();
-
+            //dd($projectUser->level_id);
             $pending_incidents = Incident::where('support_id', null)
                 ->where('level_id', $projectUser->level_id)->get();
 
-
-                //return view('includes.listaIncidencias')->with(compact('incidents', 'pending_incidents'));
+            $incidents_asignar = Incident::where('client_id', $user->id)
+                ->where('project_id', $selected_project_id)->get();
+            return view('includes.listaIncidencias')->with(compact('incidents', 'pending_incidents','incidents_asignar'));
         }
 
 
         $incidents_asignar = Incident::where('client_id', $user->id)
             ->where('project_id', $selected_project_id)->get();
 
-        return view('includes.listaIncidencias')->with(compact('incidents', 'pending_incidents','incidents_asignar'));
+        return view('includes.listaIncidencias')->with(compact('incidents_asignar'));
     }
     /**
      * Funcion que obtiene los registros de incidencias filtrado por el identificador
@@ -93,14 +94,16 @@ class IncidentController extends Controller
         $incident->title = $request->input('title');
         $incident->descripcion = $request->input('descripcion');
 
-        $user=auth()->user();
-        $project_level=Project::find($user->selected_project_id)->first_level_id;
+        $user = auth()->user();
+        $project_level = Project::find($user->selected_project_id)->first_level_id;
+
 
         $incident->client_id = $user->id;
         $incident->project_id = $user->selected_project_id;
         $incident->level_id = $project_level;
 
 
+        // dd($incident->level_id );
         $incident->save();
 
         //return $request->input('intensidad');

@@ -10,7 +10,7 @@
             <tbody>
                 <tr>
                     <td>
-                        @if (auth()->user()->is_support)
+                        @if  (auth()->user()->is_support)
                             <div class="card">
                                 <div class="card-header bg-primary text-light fs-3">
                                     <a href="#" class="list-group-item list-group-item-action active"
@@ -87,29 +87,31 @@
                                     </table>
                                 </div>
                             </div>
-                        @else
-                        <br />
-                        {{-- incidencias sasignadas a otros --}}
-                        <div class="card">
-                            <div class="card-header bg-primary text-light fs-3">
-                                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                    Incidencias asignadas a otros
-                                </a>
-                            </div>
-                            <div class="card-body fs-4">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Código</th>
-                                            <th>Categoria</th>
-                                            <th>Severidad</th>
-                                            <th>Estado</th>
-                                            <th>Fecha de creación</th>
-                                            <th>Titulo</th>
-                                            <th>Responsable</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="dashboard_to_others">
+
+                        @endif
+                            <br />
+                            {{-- incidencias sasignadas a otros --}}
+                            <div class="card">
+                                <div class="card-header bg-primary text-light fs-3">
+                                    <a href="#" class="list-group-item list-group-item-action active"
+                                        aria-current="true">
+                                        Incidencias hechas por mi
+                                    </a>
+                                </div>
+                                <div class="card-body fs-4">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Código</th>
+                                                <th>Categoria</th>
+                                                <th>Severidad</th>
+                                                <th>Estado</th>
+                                                <th>Fecha de creación</th>
+                                                <th>Titulo</th>
+                                                <th>Responsable</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dashboard_to_others">
                                         @foreach ($incidents_asignar as $incidente_asignar)
                                             <tr>
                                                 <td>{{ $incidente_asignar->id }}</td>
@@ -119,15 +121,14 @@
                                                 <td>{{ $incidente_asignar->created_at }}</td>
                                                 <td>{{ $incidente_asignar->title_short }}</td>
                                                 <td>
-                                                    {{ $incidente_asignar->support_id }}
+                                                    {{ $incidente_asignar->support_id ?: 'Sin asignar' }}
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                </table>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        @endif
                     </td>
                 </tr>
             </tbody>
